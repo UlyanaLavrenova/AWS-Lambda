@@ -1,0 +1,31 @@
+service: BeadBarcodeReport
+
+provider:
+  name: aws
+  runtime: python3.7
+  region: eu-central-1
+  stage: dev
+  role: arn:aws:iam::524088887841:role/beadcode_report
+    
+
+package:
+  exclude:
+    - venv/**
+
+functions:
+  Daily:
+    handler: daily.main
+    environment:
+      RECIPIENT: romina_markic@goodyear.com
+  AllData:
+    handler: allData.main
+    environment:
+      RECIPIENT: romina_markic@goodyear.com
+
+plugins:
+  - serverless-python-requirements
+
+custom:
+  pythonRequirements:
+    dockerizePip: true
+  bucket: beadcodereport
